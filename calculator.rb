@@ -13,10 +13,10 @@ loop do
   say "Now what would you like to do with these? Pick:\n1: add, 2: subtract, 3: multiply, 4: divide"
   operator = gets.chomp.to_i
 
-  begin
-    say "That's not a valid selection! Choose from the above, from 1-4."
+  until (1..4).include?(operator)
+    say "That's not a valid selection! Choose from the above, 1-4."
     operator = gets.chomp.to_i
-  end until (1..4).include?(operator)
+  end
 
   if operator == 1
     result = num1.to_i + num2.to_i
