@@ -4,8 +4,8 @@ end
 
 
 def show_cards(cards)
-  (cards[0][1]).to_s (cards[0][0]).to_s
-  (cards[1][1]).to_s (cards[1][0]).to_s
+ 
+
 end
 
 

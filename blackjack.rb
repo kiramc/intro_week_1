@@ -67,7 +67,6 @@ say "You have: #{players_cards[0][1]}#{players_cards[0][0]}, #{players_cards[1][
 #{players_total}.\n Do you want to 1) hit or 2) stay?"
 hit_or_stay = gets.chomp
 
-puts "-->The dealer has" + show_cards(dealers_cards)
 
 
 
