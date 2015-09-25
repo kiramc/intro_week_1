@@ -44,8 +44,13 @@ end
 def player_picks(b)
   puts "Pick a position (1 - 9):"
   player_position = gets.chomp.to_i
-  b[player_position] = "X"
-  draw_board(b)
+  loop do
+    puts "That's an invalid selection! Pick again."
+    player_position = gets.chomp.to_i
+    break if empty_positions(b).include?(player_position)
+  end
+    b[player_position] = "X"
+    draw_board(b)
 end
 
 def empty_positions(b)
