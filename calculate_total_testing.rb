@@ -24,7 +24,11 @@ def calculate_total(cards)
 
   cards.each do |pair|
     if pair[1] == "A"
-      total += 11
+      if total < 11
+        total += 11
+      else
+        total += 1
+      end
     elsif pair[1].to_i == 0
       total += 10
     else
