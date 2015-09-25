@@ -45,9 +45,9 @@ def player_picks(b)
   puts "Pick a position (1 - 9):"
   player_position = gets.chomp.to_i
   loop do
+    break if empty_positions(b).include?(player_position)
     puts "That's an invalid selection! Pick again."
     player_position = gets.chomp.to_i
-    break if empty_positions(b).include?(player_position)
   end
     b[player_position] = "X"
     draw_board(b)
@@ -83,7 +83,7 @@ loop do
   break if check_for_winner(board) || empty_positions(board).empty?
 end
 
-if winner
+if check_for_winner(board)
   puts "#{check_for_winner(board)} wins!"
 else
   puts "It's a tie!"
