@@ -38,18 +38,8 @@ def calculate_total(cards)
     total -= 10 if total > 21
   end
 
-
-return total
-
+total
 end
-
-#Correct for aces
-
-# def correct_for_aces(cards, total)
-#   cards.each do
-# end
-
-
 
 p players_total = calculate_total(players_cards)
 p dealers_total = calculate_total(dealers_cards)

@@ -53,19 +53,43 @@ dealers_cards << deck.pop
 players_cards << deck.pop
 dealers_cards << deck.pop
 
-# players_total = calculate_total(players_cards)
-# dealers_total = calculate_total(dealers_cards)
+def calculate_total(cards)
+  
+  array_of_faces = cards.map {|pair| pair[1]}
+  total = 0
+
+  array_of_faces.each do |face|
+    if face == "A"
+      total += 11
+    # capture J, Q, K
+    elsif face.to_i == 0 
+      total += 10
+    else
+      total += face.to_i
+    end
+  end
+
+  # correct for aces
+  array_of_faces.count{ |face| face == "A"}.times do
+    total -= 10 if total > 21
+  end
+
+total
+end
 
 #First round
 
+players_total = calculate_total(players_cards)
+dealers_total = calculate_total(dealers_cards)
+
+say "The dealer has: #{dealers_cards[0][1]}#{dealers_cards[0][0]}, #{dealers_cards[1][1]}#{dealers_cards[1][0]} for a total of #{dealers_total}"
+
+say "You have: #{players_cards[0][1]}#{players_cards[0][0]}, #{players_cards[1][1]}#{players_cards[1][0]} for a total of #{players_total}."
 
 
-say "The dealer has: #{dealers_cards[0][1]}#{dealers_cards[0][0]}, #{dealers_cards[1][1]}#{dealers_cards[1][0]} for a total of "
-#{players_total}"
 
-say "You have: #{players_cards[0][1]}#{players_cards[0][0]}, #{players_cards[1][1]}#{players_cards[1][0]} for a total of "
-#{players_total}.\n Do you want to 1) hit or 2) stay?"
-hit_or_stay = gets.chomp
+# ** this goes in a conditional about what to do next -- Do you want to 1) hit or 2) stay?"
+# hit_or_stay = gets.chomp
 
 
 
