@@ -15,54 +15,22 @@
 # 5. compare player and dealer totals
 #   - if player total > dealer total, player wins, else dealer wins
 #   - if player total == dealer total, it's a tie.
-  
-require 'pry'
+
 
 def say(msg)
   puts "--> #{msg}"
 end
 
 
-# def calculate_total(cards)
-#   get value from face of cards
-#     if calculate_total(cards) > 10, ace is 1
-#       if
-#   add them up
-# end
-
-
-say "Welcome to blackjack. What's your name?"
-players_name = gets.chomp
-
-say "Great, nice to meet you #{players_name}. Let's get started."
-say "I'll shuffle the cards....."
-
-suits = %w(♣ ♥ ♠ ♦)
-cards = %w(2 3 4 5 6 7 8 9 10 J Q K A)
-
-deck = suits.product(cards)
-deck = deck.shuffle!
-
-#Dealing
-
-players_cards = []
-dealers_cards =[]
-
-players_cards << deck.pop
-dealers_cards << deck.pop
-players_cards << deck.pop
-dealers_cards << deck.pop
-
-def calculate_total(cards)
+def calculate_total(hand)
   
-  array_of_faces = cards.map {|pair| pair[1]}
+  array_of_faces = hand.map {|pair| pair[1]}
   total = 0
 
   array_of_faces.each do |face|
     if face == "A"
       total += 11
-    # capture J, Q, K
-    elsif face.to_i == 0 
+    elsif ["J", "Q", "K"].include?(face)
       total += 10
     else
       total += face.to_i
@@ -77,22 +45,87 @@ def calculate_total(cards)
 total
 end
 
-#First round
+def show_cards(hand)
+  hand.map{ |pair| "#{pair[1]}#{pair[0]}" }.join(", ")
+end
 
-players_total = calculate_total(players_cards)
-dealers_total = calculate_total(dealers_cards)
+# def hit(hand)
+#   hand << deck.pop
+# end
 
-say "The dealer has: #{dealers_cards[0][1]}#{dealers_cards[0][0]}, #{dealers_cards[1][1]}#{dealers_cards[1][0]} for a total of #{dealers_total}"
+say "Welcome to blackjack. What's your name?"
+players_name = gets.chomp
 
-say "You have: #{players_cards[0][1]}#{players_cards[0][0]}, #{players_cards[1][1]}#{players_cards[1][0]} for a total of #{players_total}."
+say "Great, nice to meet you #{players_name}. Let's get started."
+say "I'll shuffle the cards....."
+
+suits = %w(♣ ♥ ♠ ♦)
+cards = %w(2 3 4 5 6 7 8 9 10 J Q K A)
+
+deck = suits.product(cards)
+deck = deck.shuffle!
+
+# Dealing
+
+players_hand = []
+dealers_hand =[]
+
+players_hand << deck.pop
+dealers_hand << deck.pop
+players_hand << deck.pop
+dealers_hand << deck.pop
+
+players_total = calculate_total(players_hand)
+dealers_total = calculate_total(dealers_hand)
+
+say "The dealer has: #{show_cards(dealers_hand)} for a total of #{dealers_total}"
+
+say "You have: #{show_cards(players_hand)} for a total of #{players_total}."
+
+# Player's turn
+
+loop do
+  break if players_total > 21
+  if dealers_total == 21
+    say "Whoa that's lucky! Dealer hit blackjack, game over."
+    exit  
+  elsif players_total == 21
+    say "Blackjack! Congratulations, you win!"
+    exit
+  end
+
+  if players_total > 21
+    "Oh no! Looks like you busted, sorry. Maybe next time."
+    exit
+  else
+    say "Do you want to 1) hit or 2) stay?"
+    hit_or_stay = gets.chomp.to_i
+      loop do
+        break if hit_or_stay == 1 || hit_or_stay == 2
+        puts "That's an invalid selection. Pick 1 to hit, 2 to stay."
+        hit_or_stay = gets.chomp.to_i
+      end
+    if hit_or_stay == 1
+      players_hand << deck.pop
+      say "You chose hit, your new card is #{players_hand.last[1]}#{players_hand.last[0]}, for a total of #{calculate_total(players_hand)}."
+    elsif hit_or_stay == 2
+      players_total = calculate_total(players_hand)
+      say "You chose to stay with a total of #{players_total}\n"
+    end
+  end
+end
 
 
-
-# ** this goes in a conditional about what to do next -- Do you want to 1) hit or 2) stay?"
-# hit_or_stay = gets.chomp
+  
 
 
+  # hit or stay
 
+  
+# Dealer's turn
+
+# loop do
+#   if dealers_total == 21
 
 
 
