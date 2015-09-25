@@ -17,24 +17,27 @@ dealers_cards << deck.pop
 p players_cards
 p dealers_cards
 
-
 def calculate_total(cards)
   
+  array_of_faces = cards.map {|pair| pair[1]}
   total = 0
 
-  cards.each do |pair|
-    if pair[1] == "A"
-      if total < 11
-        total += 11
-      else
-        total += 1
-      end
-    elsif pair[1].to_i == 0
+  array_of_faces.each do |face|
+    if face == "A"
+      total += 11
+    # capture J, Q, K
+    elsif face.to_i == 0 
       total += 10
     else
-      total += pair[1].to_i
+      total += face.to_i
     end
   end
+
+  # correct for aces
+  array_of_faces.count{ |face| face == "A"}.times do
+    total -= 10 if total > 21
+  end
+
 
 return total
 
@@ -42,8 +45,11 @@ end
 
 #Correct for aces
 
+# def correct_for_aces(cards, total)
+#   cards.each do
+# end
 
 
 
-p calculate_total(players_cards)
-p calculate_total(dealers_cards)
+p players_total = calculate_total(players_cards)
+p dealers_total = calculate_total(dealers_cards)
