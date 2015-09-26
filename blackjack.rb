@@ -117,8 +117,8 @@ end
 
 # Compare hands
 
-say "Dealer's hand: #{show_cards(dealers_hand)}."
-say "Your hand: #{show_cards(players_hand)}."
+say "Dealer has #{show_cards(dealers_hand)} for a total of #{dealers_total}."
+say "You have #{show_cards(players_hand)} for a total of #{players_total}."
 
 if players_total > dealers_total
   say "Congratulations! You win."
