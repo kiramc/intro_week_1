@@ -86,7 +86,7 @@ say "You have: #{show_cards(players_hand)} for a total of #{players_total}."
 
 loop do
 
-if dealers_total == 21
+  if dealers_total == 21
     say "Whoa that's lucky! Dealer hit blackjack, game over."
     exit  
   elsif players_total == 21
@@ -115,6 +115,7 @@ if dealers_total == 21
   elsif hit_or_stay == 2
     players_total = calculate_total(players_hand)
     say "You chose to stay with a total of #{players_total}\n\n"
+    break
   end
 end
 
