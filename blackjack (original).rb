@@ -15,7 +15,8 @@
 # 5. compare player and dealer totals
 #   - if player total > dealer total, player wins, else dealer wins
 #   - if player total == dealer total, it's a tie.
-
+  
+require 'pry'
 
 def say(msg)
   puts "--> #{msg}"
@@ -30,7 +31,8 @@ def calculate_total(hand)
   array_of_faces.each do |face|
     if face == "A"
       total += 11
-    elsif ["J", "Q", "K"].include?(face)
+    # capture J, Q, K
+    elsif face.to_i == 0 
       total += 10
     else
       total += face.to_i
@@ -46,7 +48,7 @@ total
 end
 
 def show_cards(hand)
-  hand.map{ |pair| "#{pair[1]}#{pair[0]}" }.join(", ")
+  hand.map { |pair| "#{pair[1]}#{pair[0]}" }.join(", ")
 end
 
 # def hit(hand)
@@ -85,8 +87,7 @@ say "You have: #{show_cards(players_hand)} for a total of #{players_total}."
 # Player's turn
 
 loop do
-
-if dealers_total == 21
+  if dealers_total == 21
     say "Whoa that's lucky! Dealer hit blackjack, game over."
     exit  
   elsif players_total == 21
@@ -111,7 +112,7 @@ if dealers_total == 21
   if hit_or_stay == 1
     players_hand << deck.pop
     players_total = calculate_total(players_hand)
-    say "You chose hit, your new card is #{players_hand.last[1]}#{players_hand.last[0]}, for a total of #{players_total}"
+    say "You chose hit, your new card is #{players_hand.last[1]}#{players_hand.last[0]}, for a total of: #{players_total}"
   elsif hit_or_stay == 2
     players_total = calculate_total(players_hand)
     say "You chose to stay with a total of #{players_total}\n\n"
@@ -122,9 +123,6 @@ end
 
 # loop do
 #   if dealers_total == 21
-
-
-
 
 
 
